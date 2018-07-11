@@ -6,12 +6,12 @@ const moviesSchema = new Schema({
     type: String,
     required: true
   },
-  year: {
-    type: Number,
+  director: {
+    type: String,
     required: true
   }
 });
 
-const moviesDb = mongoose.model('moviesDb', moviesSchema);
+const Movie = mongoose.model('Movie', moviesSchema);
 
-module.exports = moviesDb;
+module.exports = Movie;

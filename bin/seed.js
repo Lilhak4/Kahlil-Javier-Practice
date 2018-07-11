@@ -1,4 +1,11 @@
 'use strict';
+const mongoose = require('mongoose');
+const Movie = require('../models/movie');
+
+const dbtitle = 'movies-cinema';
+mongoose.connect(`mongodb://localhost/${dbtitle}`);
+
+Movie.collection.drop();
 
 const movies = [
   {
@@ -66,3 +73,12 @@ const movies = [
     howtimes: ['13:00', '15:30', '18:00', '20:10', '22:40']
   }
 ];
+
+Movie.create(movies)
+  .then(() => {
+    console.log(`Created ${movies.length} movies`);
+    mongoose.connection.close();
+  })
+  .catch((err) => {
+    throw (err);
+  });

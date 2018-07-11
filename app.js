@@ -7,6 +7,7 @@ const logger = require('morgan');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
+mongoose.connect('mongodb://localhost/movies-cinema');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
@@ -15,14 +16,14 @@ const authRouter = require('./routes/auth');
 
 const app = express();
 
-// create app connect to db
+// -----create app connect to db-----
 mongoose.Promise = Promise;
 mongoose.connect('mongodb://localhost/auth-demo', {
   keepAlive: true,
   reconnectTries: Number.MAX_VALUE
 });
 
-// view engine setup
+// -----view engine setup-----
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
@@ -34,7 +35,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // -----Session-----
-
 app.use(session({
   store: new MongoStore({
     mongooseConnection: mongoose.connection,
